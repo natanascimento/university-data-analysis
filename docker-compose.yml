@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+    postgres:
+        image: postgres
+        environment:
+            - POSTGRES_USER=university
+            - POSTGRES_PASSWORD=university
+            - POSTGRES_DB=university
+        ports:
+            - "5432:5432"
+    pgadmin:
+        image: dpage/pgadmin4
+        container_name: pgadmin4
+        hostname: pgadmin4
+        environment:
+            - PGADMIN_DEFAULT_EMAIL=admin@university.com
+            - PGADMIN_DEFAULT_PASSWORD=123456
+        depends_on:
+            - postgres
+        ports:
+            - "18080:80"
