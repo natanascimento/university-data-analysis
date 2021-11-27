@@ -1,4 +1,4 @@
-# Creating a Security Group for WordPress
+# Creating a Security Group for University Database
 resource "aws_security_group" "university-sg" {
 
   depends_on = [
@@ -14,7 +14,7 @@ resource "aws_security_group" "university-sg" {
   # VPC ID in which Security group has to be created!
   vpc_id = aws_vpc.custom.id
 
-  # Created an inbound rule for webserver access!
+  # Created an inbound rule for ssh access!
   ingress {
     description = "SSH"
     from_port   = 22
@@ -23,7 +23,7 @@ resource "aws_security_group" "university-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Created an inbound rule for ping
+  # Created an inbound rule for database
   ingress {
     description = "POSTGRESQL"
     from_port   = 5432
@@ -32,7 +32,7 @@ resource "aws_security_group" "university-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Created an inbound rule for SSH
+  # Created an inbound rule for pgadmin
   ingress {
     description = "PGADMIN"
     from_port   = 18080
@@ -41,9 +41,9 @@ resource "aws_security_group" "university-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Outward Network Traffic for the WordPress
+  # Outward Network Traffic for the database
   egress {
-    description = "output from webserver"
+    description = "output from database"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"

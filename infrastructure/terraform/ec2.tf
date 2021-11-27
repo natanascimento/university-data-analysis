@@ -26,18 +26,16 @@ resource "aws_instance" "university-database" {
   instance_type = "t2.medium"
   subnet_id = aws_subnet.subnet1.id
 
-  # Keyname and security group are obtained from the reference of their instances created above!
-  # Here I am providing the name of the key which is already uploaded on the AWS console.
   key_name = "university-data-analysis"
   
   # Security groups to use!
   vpc_security_group_ids = [aws_security_group.university-sg.id]
 
   tags = {
-   Name = "University_Database_From_Terraform"
+   Name = "University_Database"
   }
 
-  # Installing required softwares into the system!
+  # Connecting to the instance!
   connection {
     type = "ssh"
     user = "ubuntu"
@@ -55,6 +53,7 @@ resource "aws_instance" "university-database" {
     "sudo cd infchmod +x scripts/docker.sh",
     "sudo sh scripts/docker.sh"]
   }
+  #Code to deploy the database into the instance!
   provisioner "remote-exec" {
     inline = ["cd /home/ubuntu/university-data-analysis",
     "sudo docker-compose up -d"]
