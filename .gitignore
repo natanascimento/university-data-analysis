@@ -147,4 +147,4 @@ cython_debug/
 # .tfstate files
 *.tfstate
 *.tfstate.*
-
+*.terraform.lock.*
