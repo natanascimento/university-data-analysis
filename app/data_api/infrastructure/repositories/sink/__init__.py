@@ -12,7 +12,7 @@ class DatabaseSink:
         self.__AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
         self.__USER = 'university'
         self.__PASS = 'university'
-        self.__HOST = '54.160.203.69'
+        self.__HOST = '18.206.135.57'
         self.__DATABASE = 'university'
         self.__BRONZE_LAYER = 'university-datalake-bronze'
         self.__DATETIME = datetime.today()
