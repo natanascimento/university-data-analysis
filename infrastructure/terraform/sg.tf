@@ -41,6 +41,15 @@ resource "aws_security_group" "university-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # Created an inbound rule for api
+  ingress {
+    description = "DATAAPI"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # Outward Network Traffic for the database
   egress {
     description = "output from database"

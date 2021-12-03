@@ -26,7 +26,7 @@ resource "aws_instance" "university-database" {
   instance_type = "t2.medium"
   subnet_id = aws_subnet.subnet1.id
 
-  key_name = "university-data-analysis"
+  key_name = "university-key"
   
   # Security groups to use!
   vpc_security_group_ids = [aws_security_group.university-sg.id]
@@ -39,7 +39,8 @@ resource "aws_instance" "university-database" {
   connection {
     type = "ssh"
     user = "ubuntu"
-    private_key = file("~/.aws/ssh/terraform/university-data-analysis.pem")
+    agent = false
+    private_key = file("~/.aws/ssh/terraform/university-key.pem")
     host = self.public_ip
   }
 
@@ -50,8 +51,14 @@ resource "aws_instance" "university-database" {
     "cd /home/ubuntu",
     "sudo git clone https://github.com/natanascimento/university-data-analysis.git",
     "cd university-data-analysis/",
-    "sudo cd infchmod +x scripts/docker.sh",
+    "sudo chmod +x scripts/docker.sh",
     "sudo sh scripts/docker.sh"]
+  }
+  #Code to deploy the database into the instance!
+  provisioner "remote-exec" {
+    inline = ["cd /home/ubuntu/university-data-analysis",
+    "sudo docker build -t university-data-analysis .",
+    "sudo docker run -d -p 8080:8080 university-data-analysis"]
   }
   #Code to deploy the database into the instance!
   provisioner "remote-exec" {
