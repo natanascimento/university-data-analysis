@@ -3,4 +3,4 @@
 
 # Data Architecture 
 
-![Data Architecture](./docs/data_architecture.png)
+![Data Architecture](./docs/university_data_architecture.png)
